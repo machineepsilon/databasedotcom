@@ -341,6 +341,7 @@ module Databasedotcom
           list += batch
           offset += batch_size
         end
+        list
       end
 
       def self.get_all_ids
