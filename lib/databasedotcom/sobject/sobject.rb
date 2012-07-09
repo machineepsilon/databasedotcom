@@ -337,7 +337,7 @@ module Databasedotcom
         batch_size = 1000
         offset = 0
         until (batch = self.client.query(
-            "SELECT #{query_fields} FROM #{self.sobject_name} ORDER BY Id LIMIT #{batch_size} OFFSET #{offset}"
+            "SELECT #{query_fields.join(',')} FROM #{self.sobject_name} ORDER BY Id LIMIT #{batch_size} OFFSET #{offset}"
         )).empty?
           list += batch
           offset += batch_size
