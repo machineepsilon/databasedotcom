@@ -330,6 +330,24 @@ module Databasedotcom
         end
       end
 
+      def self.get_all_in_batches(query_fields=[])
+        query_fields = field_list if query_fields.empty?
+        batch = []
+        list = []
+        batch_size = 1000
+        offset = 0
+        until (batch = self.client.query(
+            "SELECT #{query_fields} FROM #{self.sobject_name} ORDER BY Id LIMIT #{batch_size} OFFSET #{offset}"
+        )).empty?
+          list += batch
+          offset += batch_size
+        end
+      end
+
+      def self.get_all_ids
+        self.get_all_in_batches(["Id"])
+      end
+
       private
 
       def self.register_field( name, field )
