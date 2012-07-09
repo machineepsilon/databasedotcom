@@ -331,8 +331,7 @@ module Databasedotcom
       end
 
       def self.get_all_in_batches(query_fields=nil)
-        query_fields = field_list if query_fields.empty?
-        batch = []
+        query_fields = self.field_list if query_fields.empty?
         list = []
         batch_size = 1000
         offset = 0
